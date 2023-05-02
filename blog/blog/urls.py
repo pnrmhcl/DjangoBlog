@@ -18,17 +18,18 @@ from django.urls import path, include
 from core.views import frontpage,about,robots_txt
 from django.conf.urls.static import static
 from django.conf import settings
-from django.contrib.auth import views
-
+from django.contrib.auth import views as a
 from django.contrib.sitemaps.views import sitemap
+from core.views import CreateUser
 
 from .sitemaps import CategorySitemap, PostSitemap
 
 sitemaps={'category': CategorySitemap, 'post':PostSitemap}
 
 urlpatterns = [
-    path("accounts/login/", views.LoginView.as_view(), name='login'),
-    path("accounts/logout",views.LogoutView.as_view(),name='logout'),
+    path("accounts/login/", a.LoginView.as_view(), name='login'),
+    path("accounts/logout",a.LogoutView.as_view(),name='logout'),
+    path("user/new/",CreateUser.as_view(), name='new_user'),
     path('sitemap.xml', sitemap, {'sitemaps':sitemaps}),
     path('robots.txt', robots_txt,name='robots_txt'),
     path('admin/', admin.site.urls),
